@@ -1,0 +1,196 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"meta_title": "Inkmark",
+	"meta_description": "Crie logos monocromáticas com modelos de lettering, selos e emblemas. Exporte SVG vetorial e PNG nas versões clara e escura.",
+	"count_compositions": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} composição",
+				"countPlural=other": "{count} composições"
+			}
+		}
+	],
+	"count_typefaces": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} tipo",
+				"countPlural=other": "{count} tipos"
+			}
+		}
+	],
+	"masthead_this_edition": "Nesta edição",
+	"masthead_contents": "{compositions}, {fonts} e quatro efeitos de impressão",
+	"masthead_price_label": "Preço do exemplar",
+	"masthead_price_text": "Grátis. Impresso no seu navegador, sem cadastro",
+	"dateline_issue": "Ano I · Nº {issue}",
+	"dateline_edition_light": "Edição clara",
+	"dateline_edition_dark": "Edição noturna",
+	"headline_title": "Sua marca, impressa hoje.",
+	"headline_subtitle": "Escreva o nome, escolha a composição e leve o arquivo em SVG ou PNG.",
+	"newsroom_title": "A redação",
+	"newsroom_reset": "Restaurar",
+	"live_proof_title": "Prova ao vivo",
+	"edition_title": "Edição",
+	"edition_light": "Clara",
+	"edition_dark": "Noturna",
+	"ink_title": "Tinta",
+	"typefaces_title": "Os tipos",
+	"ornament_title": "Ornamento",
+	"field_name": "Nome",
+	"field_topline": "Acima",
+	"field_topline_hint": "texto acima do nome",
+	"field_tagline": "Abaixo",
+	"field_tagline_hint": "texto abaixo do nome",
+	"fonts_legend": "Tipo da marca",
+	"font_custom": "Minha fonte",
+	"fonts_more": "Mais tipos ({count})",
+	"fonts_less": "Menos tipos",
+	"range_size": "Corpo",
+	"range_spacing": "Entreletra",
+	"range_tilt": "Inclinação",
+	"ornament_none": "Sem",
+	"ornament_stars": "Estrelas",
+	"ornament_diamond": "Losango",
+	"ornament_mountain": "Montanha",
+	"font_upload_question": "Tem fonte própria?",
+	"font_upload_text": "Envie um arquivo .ttf ou .otf e a composição passa a usá-la.",
+	"font_upload_input_label": "Importar fonte TTF ou OTF",
+	"font_upload_button": "Usar minha fonte (.ttf/.otf)",
+	"wear_title": "Desgaste da tinta",
+	"halftone_title": "Retícula",
+	"pressure_title": "Pressão desigual",
+	"bleed_title": "Tinta espalhada",
+	"effect_option_label": "{effect}: {level}",
+	"effect_level_0": "Sem",
+	"effect_level_1": "Leve",
+	"effect_level_2": "Médio",
+	"effect_level_3": "Forte",
+	"caption_named": "Na foto: a marca {brand} em composição {template}, {effects}.",
+	"caption_unnamed": "Na foto: a sua marca em composição {template}, {effects}.",
+	"caption_effects_none": "sem desgaste",
+	"caption_with": "com {effects}",
+	"caption_wear_1": "desgaste leve",
+	"caption_wear_2": "desgaste médio",
+	"caption_wear_3": "desgaste forte",
+	"caption_halftone_1": "retícula leve",
+	"caption_halftone_2": "retícula média",
+	"caption_halftone_3": "retícula forte",
+	"caption_pressure_1": "pressão desigual leve",
+	"caption_pressure_2": "pressão desigual média",
+	"caption_pressure_3": "pressão desigual forte",
+	"caption_bleed_1": "tinta espalhada leve",
+	"caption_bleed_2": "tinta espalhada média",
+	"caption_bleed_3": "tinta espalhada forte",
+	"lead_photo_label": "Prévia da logo {name}",
+	"lead_loading": "Compondo a página…",
+	"lead_error": "Não foi possível carregar os tipos da edição. Recarregue a página para tentar de novo.",
+	"ad_label": "Anúncio",
+	"ad_kicker": "— ANÚNCIO —",
+	"ad_title": "Leve sua marca",
+	"ad_text": "SVG vetorial e PNG em alta,\nnas versões clara e escura.",
+	"ad_button": "Exportar agora",
+	"ad_hint": "Dê um nome à marca para exportar.",
+	"export_close": "Fechar",
+	"export_kicker": "Da tela para o mundo",
+	"export_title": "Leve sua marca.",
+	"export_subtitle": "Todos os detalhes, em qualquer tamanho.",
+	"export_variant_label": "Versão",
+	"export_variant_both": "Clara + escura (ZIP)",
+	"export_variant_light": "Clara — logo preta",
+	"export_variant_dark": "Escura — logo branca",
+	"export_format_label": "Formato",
+	"export_format_both": "SVG + PNG",
+	"export_format_svg": "SVG — vetor em curvas",
+	"export_format_png": "PNG — imagem em alta resolução",
+	"export_resolution_label": "Resolução do PNG",
+	"export_transparent": "Fundo transparente",
+	"export_note": "As letras são convertidas em curvas. Nenhuma instalação de fonte é necessária. Com desgaste, retícula, pressão desigual ou tinta espalhada, o SVG leva filtros e máscaras que a maioria dos editores rasteriza; para vetor puro, deixe os quatro efeitos em “Sem”.",
+	"export_submit": "Baixar arquivos",
+	"export_status_preparing": "Preparando seus arquivos…",
+	"export_status_done": "Arquivos prontos. Download iniciado.",
+	"export_status_failed": "Não foi possível exportar. Tente novamente.",
+	"classifieds_title": "Classificados",
+	"classifieds_categories_label": "Categorias",
+	"category_all": "Todos",
+	"category_Lettering": "Lettering",
+	"category_Selos": "Selos",
+	"category_Emblemas": "Emblemas",
+	"category_one_Lettering": "Lettering",
+	"category_one_Selos": "Selo",
+	"category_one_Emblemas": "Emblema",
+	"classifieds_sheet": "Baixar prancha",
+	"classifieds_sheet_busy": "Montando…",
+	"classifieds_use_my_name": "Ver com o nome da minha marca",
+	"classifieds_range": "Composições {first} a {last} de {total}",
+	"classifieds_total": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} composição à vista",
+				"countPlural=other": "{count} composições à vista"
+			}
+		}
+	],
+	"classifieds_empty": "Nenhuma composição nesta seção.",
+	"classifieds_pages_label": "Páginas dos classificados",
+	"card_featured": "★ Destaque",
+	"card_selected": "Em uso",
+	"card_meta": "{category} · nº {number}",
+	"pagefolio_previous": "← Página anterior",
+	"pagefolio_go_to": "Ir para a página {page}",
+	"pagefolio_current": "Página {page} de {pageCount}",
+	"pagefolio_page_label": "Página {page}",
+	"pagefolio_next_long": "Continua na página {page} →",
+	"pagefolio_next_short": "página {page} →",
+	"pagefolio_end": "Fim da edição",
+	"folio_page": "The Inkmark · página {page}",
+	"folio_free": "Tudo nesta edição é seu para usar",
+	"folio_compositions": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} composição nesta edição",
+				"countPlural=other": "{count} composições nesta edição"
+			}
+		}
+	],
+	"toast_font_imported": "Fonte importada.",
+	"toast_font_invalid": "Não foi possível ler essa fonte. Use um arquivo TTF ou OTF válido.",
+	"toast_file_unreadable": "Não foi possível ler esse arquivo.",
+	"toast_reset": "Configurações restauradas.",
+	"toast_template_selected": "Em uso: {name}. Veja na prova ao vivo.",
+	"toast_export_done": "Sua marca está pronta. Bom uso!",
+	"toast_sheet_done": "Prancha pronta. Download iniciado.",
+	"toast_sheet_failed": "Não foi possível montar a prancha.",
+	"toast_fonts_failed": "Não foi possível carregar os tipos da edição.",
+	"contact_sheet_filename": "inkmark-prancha.svg",
+	"export_suffix_light": "clara",
+	"export_suffix_dark": "escura",
+	"language_switcher_label": "Idioma"
+}

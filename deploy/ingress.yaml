@@ -1,0 +1,25 @@
+# Caminho da rede local: porta 80 do Traefik para o nome inkmark.home. É HTTP puro, então o /admin
+# não existe por aqui (ADMIN_REQUIRE_HTTPS); o acesso público é o túnel (deploy/cloudflared/).
+# Só o entrypoint `web`: sem a anotação o Traefik do k3s publica também no 443 (websecure), com
+# certificado próprio, e por ali o /admin abriria pela rede local sem passar pelo Cloudflare Access.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inkmark
+  labels:
+    app.kubernetes.io/name: inkmark
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: inkmark.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: inkmark
+                port:
+                  name: http

@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# Todo avanço da main faz deploy.
+#
+#   deploy-main          post-commit, post-merge e post-rewrite o chamam: quando o branch que andou é
+#                        a main e o remoto do servidor existe, a main é enviada a ele em segundo plano;
+#                        o envio e a resposta do servidor (o deploy) vão para .git/deploy.log
+#   deploy-main --now    `npm run deploy`: envia a main e espera, mostrando o deploy; se o servidor
+#                        já tem esta main, manda fazer o deploy dela de novo (a menos que já rode)
+#
+# Outro branch, ou um clone sem o remoto, não envia nada, e nada além da main é enviado. Uma main
+# já enviada nunca é emendada nem rebaseada: se a main do servidor não é ancestral desta, o aviso
+# sai no terminal e nada é enviado.
+#
+# O remoto se chama `deploy` (INKMARK_DEPLOY_REMOTE muda o nome) e tem a forma <host>:<repositório>,
+# como em `git remote add deploy <apelido-ssh>:inkmark.git`. O nome do servidor fica só no seu
+# .git/config, nunca no repositório.
+set -euo pipefail
+
+readonly remote="${INKMARK_DEPLOY_REMOTE:-deploy}"
+# Nunca uma pergunta nem uma espera longa dentro de um commit: sem pedir senha, e um servidor fora
+# do ar (ou fora da rede de casa) é abandonado em segundos.
+export GIT_SSH_COMMAND="${GIT_SSH_COMMAND:-ssh} -o BatchMode=yes -o ConnectTimeout=5"
+# Quantas execuções o .git/deploy.log guarda.
+readonly kept=20
+# O log fica no repositório, não na pasta git de um worktree.
+log="$(git rev-parse --path-format=absolute --git-common-dir)/deploy.log"
+readonly log
+
+say() { printf 'deploy: %s\n' "$*" >&2; }
+
+# O envio em segundo plano: a saída dele e o fim do deploy, anexados ao log.
+if [ "${1:-}" = --push ]; then
+  # O que vai é a main de agora, que pode ter andado além do commit que iniciou este envio.
+  commit="$(git rev-parse refs/heads/main)"
+  printf '\n== %s enviando a main em %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$commit"
+  answer="$(mktemp)"
+  trap 'rm -f "$answer"' EXIT
+  if ! git push "$remote" refs/heads/main:refs/heads/main 2>&1 | tee "$answer"; then
+    echo "== o envio falhou"
+  elif grep -q 'Everything up-to-date' "$answer"; then
+    # Outro envio, de um commit mais novo da main, já levou este.
+    echo "== pronto: a main já estava no servidor"
+  elif grep -Eq "inkmark-deploy: (deployed|unchanged|superseded) $commit" "$answer"; then
+    echo "== pronto: $(grep -Eo "inkmark-deploy: [a-z]+" "$answer" | tail -n 1 | cut -d' ' -f2)"
+  else
+    echo "== o deploy falhou: veja acima, ou ~/inkmark-deploy/logs/$commit.log no servidor"
+  fi
+  exit 0
+fi
+
+now=false
+[ "${1:-}" = --now ] && now=true
+
+if ! $now && [ "$(git symbolic-ref --quiet --short HEAD || true)" != main ]; then
+  exit 0
+fi
+if ! git remote get-url "$remote" >/dev/null 2>&1; then
+  if $now; then
+    say "não há o remoto $remote: git remote add $remote <host>:inkmark.git (veja docs/deploy.md)"
+    exit 1
+  fi
+  exit 0
+fi
+
+main="$(git rev-parse refs/heads/main)"
+if ! held="$(git ls-remote "$remote" refs/heads/main)"; then
+  say "$remote não responde: a main não foi enviada; rode npm run deploy quando ele responder"
+  exit "$($now && echo 1 || echo 0)"
+fi
+held="${held%%[[:space:]]*}"
+if [ -n "$held" ] && ! git merge-base --is-ancestor "$held" "$main" 2>/dev/null; then
+  say "a main de $remote (${held:0:12}) não é ancestral desta main: uma main enviada foi emendada"
+  say "ou rebaseada? Nada foi enviado. Nunca emende nem rebaseie uma main enviada; ponha a"
+  say "mudança num commit novo em cima da main de $remote."
+  printf '\n== %s não enviada: a main %s de %s não é ancestral de %s\n' \
+    "$(date '+%Y-%m-%d %H:%M:%S')" "$held" "$remote" "$main" >>"$log"
+  exit "$($now && echo 1 || echo 0)"
+fi
+
+if $now; then
+  if [ "$held" = "$main" ]; then
+    # O remoto é <host>:<repositório>.
+    url="$(git remote get-url "$remote")"
+    exec ssh "${url%%:*}" "${url#*:}/hooks/start-deploy $main"
+  fi
+  exec git push "$remote" refs/heads/main:refs/heads/main
+fi
+[ "$held" != "$main" ] || exit 0
+
+# Só as últimas execuções ficam, esta entre elas.
+if [ -f "$log" ]; then
+  first="$(grep -nE '^== [0-9]{4}-' "$log" | tail -n "$((kept - 1))" | head -n 1 | cut -d: -f1)"
+  if [ -n "$first" ] && [ "$first" -gt 1 ]; then
+    tail -n +"$first" "$log" >"$log.kept" && mv "$log.kept" "$log"
+  fi
+fi
+# Solto do commit: a saída vai só para o log, e fechar o terminal não o interrompe.
+nohup "$0" --push "$main" >>"$log" 2>&1 </dev/null &

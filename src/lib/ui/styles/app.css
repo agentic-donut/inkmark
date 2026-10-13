@@ -1,0 +1,388 @@
+/*
+ * Estilos globais do visual "The Inkmark": papel jornal, tinta preta e tipografia de imprensa.
+ * Tailwind v4 em modo CSS-first: os tokens vivem em @theme e viram utilitários (text-ink, font-masthead...).
+ * As convenções estão em docs/arquitetura.md, seção "Estilos".
+ */
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'Old Standard';
+	src: url('/fonts/ui/OldStandard-Regular.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Old Standard';
+	src: url('/fonts/ui/OldStandard-Bold.ttf');
+	font-weight: 700;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Old Standard';
+	src: url('/fonts/ui/OldStandard-Italic.ttf');
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Pirata One';
+	src: url('/fonts/PirataOne.ttf');
+	font-display: swap;
+}
+/* Fontes das logos, para mostrar cada opção do seletor no próprio desenho. */
+@font-face {
+	font-family: 'Lobster';
+	src: url('/fonts/Lobster.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'OleoScript';
+	src: url('/fonts/OleoScript.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'KaushanScript';
+	src: url('/fonts/KaushanScript.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Yellowtail';
+	src: url('/fonts/Yellowtail.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Pacifico';
+	src: url('/fonts/Pacifico.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'PirataOne';
+	src: url('/fonts/PirataOne.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'AlfaSlabOne';
+	src: url('/fonts/AlfaSlabOne.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Bungee';
+	src: url('/fonts/Bungee.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'BebasNeue';
+	src: url('/fonts/BebasNeue.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'BarlowCondensed';
+	src: url('/fonts/BarlowCondensed.ttf');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Oswald';
+	src: url('/fonts/Oswald.ttf');
+	font-display: swap;
+}
+
+/*
+ * `static` emite todas as variáveis no :root mesmo sem uso, para os estilos antigos
+ * (var(--ink), var(--font-text)...) continuarem funcionando durante a migração.
+ */
+@theme static {
+	/* A paleta padrão do Tailwind é descartada: só existem as cores do jornal. */
+	--color-*: initial;
+	--color-ink: #1a1918;
+	--color-ink-soft: #36332d;
+	--color-paper: #e3e0d6;
+	--color-night-paper: #23211e;
+	--color-night-ink: #ece5d6;
+
+	--font-*: initial;
+	--font-text: 'Old Standard', Georgia, serif;
+	--font-masthead: 'Pirata One', serif;
+	/* Um por fonte do seletor de tipos; o nome é o da família registrada em @font-face (id do motor). */
+	--font-lobster: 'Lobster';
+	--font-oleo-script: 'OleoScript';
+	--font-kaushan-script: 'KaushanScript';
+	--font-yellowtail: 'Yellowtail';
+	--font-pacifico: 'Pacifico';
+	--font-pirata-one: 'PirataOne';
+	--font-alfa-slab-one: 'AlfaSlabOne';
+	--font-bungee: 'Bungee';
+	--font-bebas-neue: 'BebasNeue';
+	--font-barlow-condensed: 'BarlowCondensed';
+	--font-oswald: 'Oswald';
+
+	--tracking-*: initial;
+	--tracking-caps: 0.16em;
+
+	--container-page: 1300px;
+}
+
+@layer base {
+	:root {
+		/* Nomes antigos dos tokens (os de fonte e de espaçamento de letras já saem do @theme com o mesmo nome). */
+		--ink: var(--color-ink);
+		--ink-soft: var(--color-ink-soft);
+		--paper: var(--color-paper);
+		--night-paper: var(--color-night-paper);
+		--night-ink: var(--color-night-ink);
+		--paper-texture: url('/paper/jornal.jpg');
+		--night-texture: url('/paper/preto.jpg');
+		--rule: 1px solid var(--color-ink);
+		--rule-double: 4px double var(--color-ink);
+		--page-width: var(--container-page);
+		/* A margem lateral da página encolhe nas telas estreitas: as rotas redefinem esta variável. */
+		--page-gutter: 44px;
+		color-scheme: light;
+	}
+
+	/*
+	 * Compensações do Preflight para manter o visual anterior ao Tailwind.
+	 * O Preflight já zera margens, bordas e listas (os componentes antigos faziam isso à mão);
+	 * aqui ficam só os padrões do navegador que ele muda e que o visual usava.
+	 */
+	html {
+		line-height: normal;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-weight: bold;
+	}
+	h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+	h3 {
+		font-size: 1.17em;
+	}
+	h5 {
+		font-size: 0.83em;
+	}
+	h6 {
+		font-size: 0.67em;
+	}
+	/* Links ficam sublinhados, como no navegador (o Preflight os deixa sem decoração). */
+	a {
+		text-decoration: underline;
+	}
+	small {
+		font-size: smaller;
+	}
+	/* Preenchimento e margem padrão dos controles de formulário, zerados pelo Preflight. */
+	/* O Preflight faz os controles herdarem o espaçamento de letras; no navegador ele é normal. */
+	button,
+	input,
+	select,
+	textarea {
+		letter-spacing: normal;
+	}
+	button {
+		padding: 1px 6px;
+	}
+	input:not([type='range'], [type='checkbox'], [type='radio']) {
+		padding: 1px 2px;
+	}
+	input[type='checkbox'],
+	input[type='radio'] {
+		margin: 3px 3px 3px 4px;
+	}
+	input[type='range'] {
+		margin: 2px;
+	}
+	textarea {
+		padding: 2px;
+	}
+	/* O `margin: 0` do Preflight tira o centro do <dialog> modal (UA: margin auto). */
+	dialog {
+		margin: auto;
+	}
+
+	body {
+		background: var(--color-paper) var(--paper-texture) 0 0 / 768px;
+		color: var(--color-ink);
+		font-family: var(--font-text);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	button,
+	input,
+	select {
+		font: inherit;
+		color: inherit;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-ink);
+		outline-offset: 3px;
+	}
+}
+
+/* Tinta sobre papel: a logo multiplica com a textura e deixa o dente do papel aparecer. */
+@utility ink {
+	& > svg {
+		display: block;
+		width: 100%;
+		height: auto;
+		mix-blend-mode: multiply;
+	}
+	& > svg > g {
+		opacity: 0.94;
+	}
+	/* Versão noturna: a classe `night` acompanha `ink` no mesmo elemento. */
+	&.night > svg {
+		mix-blend-mode: normal;
+	}
+	&.night > svg > g {
+		opacity: 0.9;
+	}
+}
+
+/* Esconde só visualmente, mantendo o conteúdo para leitores de tela (e radios para o teclado). */
+@utility visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* Coluna central da página: largura máxima e margem lateral (`--page-gutter`). */
+@utility page-shell {
+	max-width: var(--page-width);
+	margin-inline: auto;
+	padding-inline: var(--page-gutter);
+}
+
+/* ===== Site público: padrões repetidos entre os componentes de `components/public` ===== */
+
+/* Rótulo em versalete: corpo 11px, negrito, caixa alta. O espaçamento de letras muda por uso (`tracking-*`). */
+@utility label-caps {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+/* Título de seção com fio embaixo (o "kicker" do jornal): rótulo em versalete espaçado e filete. */
+@utility kicker-label {
+	padding-bottom: 5px;
+	border-bottom: var(--rule);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+/* Filete duplo embaixo, que fecha o cabeçalho e a grade de classificados. */
+@utility rule-b-double {
+	border-bottom: var(--rule-double);
+}
+
+/* Caixa de filete simples que agrupa um controle na coluna lateral. */
+@utility panel {
+	margin: 0 0 14px;
+	padding: 12px 14px;
+	border: var(--rule);
+}
+
+/*
+ * Botão de amostra (seletores de desgaste e de acabamento): desenho em cima, nome em versalete embaixo.
+ * A opção ativa ganha negrito e sublinhado; ao passar o mouse nas outras, sublinhado pontilhado.
+ * O tamanho do desenho fica com quem usa (`[&_svg]:size-*`).
+ */
+@utility swatch-button {
+	padding: 2px 0;
+	cursor: pointer;
+	text-align: center;
+	font-size: 10px;
+	letter-spacing: normal;
+	text-transform: uppercase;
+	& svg {
+		display: block;
+		margin-inline: auto;
+		margin-bottom: 4px;
+		mix-blend-mode: multiply;
+	}
+	&[aria-pressed='true'] span {
+		font-weight: 700;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+	&:hover:not([aria-pressed='true']) span {
+		text-decoration: underline dotted;
+		text-underline-offset: 3px;
+	}
+}
+
+/* Papel jornal (textura clara) com tinta preta; a versão noturna usa papel preto e tinta clara. */
+@utility paper-sheet {
+	background: var(--color-paper) var(--paper-texture) 0 0 / 768px;
+	color: var(--color-ink);
+}
+@utility night-sheet {
+	background: var(--color-night-paper) var(--night-texture) 0 0 / 768px;
+	color: var(--color-night-ink);
+}
+
+/* Véu de tinta sobre o papel, para o realce de passar o mouse (8% de tinta). */
+@utility ink-wash {
+	background: color-mix(in srgb, var(--color-ink) 8%, transparent);
+}
+
+/* Botão cheio: tinta preta com letras de papel, em versalete. Tamanho, espaçamento e borda ficam com quem usa. */
+@utility ink-button {
+	background: var(--color-ink);
+	color: var(--color-paper);
+	font-weight: 700;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+/* Seta do <select> sem aparência nativa (triângulo de tinta à direita). */
+@utility select-caret {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231a1918'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+}
+
+/* ===== Admin: padrões próprios da Redação (rótulos e botões cheios reutilizam label-caps e ink-button) ===== */
+
+/*
+ * Botão de ação da lista: contorno fino, versalete, inverte ao passar o mouse.
+ * A classe `active` (ação ligada, como «Tirar destaque») deixa o botão invertido.
+ * O preenchimento fica com quem usa.
+ */
+@utility admin-action {
+	background: transparent;
+	border: 1px solid var(--color-ink);
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	font-weight: 700;
+	cursor: pointer;
+	&:hover:not(:disabled),
+	&.active {
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+	&:disabled {
+		opacity: 0.35;
+		cursor: not-allowed;
+	}
+}
+
+/* Campo de texto e seleção da lista: papel claro, contorno fino, largura total. */
+@utility admin-field {
+	width: 100%;
+	padding: 7px 10px;
+	background: color-mix(in srgb, var(--color-paper) 55%, white);
+	border: 1px solid var(--color-ink);
+	font-size: 16px;
+}

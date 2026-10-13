@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# A preparação única do servidor, rodada lá por `npm run deploy:install` depois de copiar esta pasta
+# para ~/inkmark-deploy/server. Faz o que o usuário do deploy pode fazer (o repositório de deploy e
+# seus hooks, as pastas do deploy, o namespace) e confere o que o root faz uma vez, dizendo o que
+# falta. Veja docs/deploy.md.
+set -euo pipefail
+
+here="$(cd "$(dirname "$0")" && pwd)"
+readonly here
+readonly repository="$HOME/inkmark.git"
+readonly data=/srv/inkmark/data
+readonly import=(/usr/local/bin/k3s ctr images import -)
+readonly kubeconfig="$HOME/.kube/config"
+readonly namespace=inkmark
+missing=0
+
+ok() { printf 'ok       %s\n' "$*"; }
+missing() {
+  printf 'faltando %s\n' "$*"
+  missing=$((missing + 1))
+}
+
+kube() { kubectl --kubeconfig "$kubeconfig" --namespace "$namespace" "$@"; }
+
+# Confere um Secret: ele existe e a chave $2 tem valor. O deploy lê os Secrets e nunca os escreve,
+# e este script também não: as senhas e o token são do dono, criados à mão (docs/deploy.md).
+check_secret() {
+  local name="$1" key="$2" hint="$3" value
+  value="$(kube get secret "$name" --output "jsonpath={.data.$key}" 2>/dev/null || true)"
+  if [ -n "$value" ]; then
+    ok "o Secret $name, com a chave $key"
+  else
+    missing "o Secret $name com a chave $key: $hint"
+  fi
+}
+
+[ -d "$repository" ] || git init --quiet --bare --initial-branch main "$repository"
+install -m 755 "$here/post-receive" "$here/update" "$here/start-deploy" "$here/deploy.sh" \
+  "$repository/hooks/"
+mkdir -p "$HOME/inkmark-deploy/logs" "$HOME/inkmark-deploy/work"
+ok "$repository, com os hooks: update, post-receive, start-deploy, deploy.sh"
+
+if [ "$(stat -c %u "$data" 2>/dev/null)" = 1000 ]; then
+  ok "$data, do uid 1000 (o usuário do app na imagem)"
+else
+  missing "$data, do uid 1000: sudo install -d -o 1000 -g 1000 -m 700 $data"
+fi
+if sudo -n -l "${import[@]}" >/dev/null 2>&1; then
+  ok "o sudo roda '${import[*]}' sem senha"
+else
+  missing "a regra do sudoers: '$USER ALL=(root) NOPASSWD: ${import[*]}' em /etc/sudoers.d/inkmark-deploy"
+fi
+if KUBECONFIG="$kubeconfig" kubectl get nodes >/dev/null 2>&1; then
+  ok "$kubeconfig alcança o k3s"
+  kube get namespace "$namespace" >/dev/null 2>&1 || kubectl --kubeconfig "$kubeconfig" create namespace "$namespace" >/dev/null
+  ok "o namespace $namespace"
+  check_secret inkmark admin-password "kubectl -n $namespace create secret generic inkmark --from-literal=admin-password=... --from-literal=session-secret=... (docs/deploy.md)"
+  check_secret inkmark session-secret "veja acima: o Secret inkmark leva as duas chaves"
+  check_secret cloudflared token "kubectl -n $namespace create secret generic cloudflared --from-literal=token=... (docs/deploy.md)"
+else
+  missing "$kubeconfig, uma cópia de /etc/rancher/k3s/k3s.yaml que o usuário possa ler"
+fi
+if command -v docker >/dev/null && docker info >/dev/null 2>&1; then
+  ok "o docker, para o usuário"
+else
+  missing "o docker, com o usuário no grupo dele"
+fi
+if docker buildx version >/dev/null 2>&1; then
+  ok "o BuildKit, com que o deploy constrói"
+else
+  missing "o BuildKit: o pacote docker-buildx"
+fi
+
+[ "$missing" -eq 0 ] || exit 1

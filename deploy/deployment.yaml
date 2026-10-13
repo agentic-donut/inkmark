@@ -1,0 +1,107 @@
+# Um Inkmark só: o SQLite, a revogação de sessões e o limite de tentativas de login vivem num
+# processo. O antigo sai antes de o novo subir (Recreate), para dois nunca abrirem o mesmo banco.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inkmark
+  labels:
+    app.kubernetes.io/name: inkmark
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: inkmark
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: inkmark
+    spec:
+      # O Kubernetes poria INKMARK_PORT=tcp://… no ambiente; o app não precisa disso.
+      enableServiceLinks: false
+      automountServiceAccountToken: false
+      securityContext:
+        # O usuário `node` da imagem, dono de /srv/inkmark/data no disco do servidor.
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: inkmark
+          image: inkmark
+          # O deploy entrega a imagem ao k3s direto; não há registro de onde baixar.
+          imagePullPolicy: Never
+          env:
+            - name: DATABASE_PATH
+              value: /data/inkmark.db
+            # O app é alcançado por dois caminhos, e os dois põem o protocolo e o IP do visitante em
+            # cabeçalhos (o adapter-node 6 não lê ORIGIN; docs/seguranca.md):
+            #   - túnel da Cloudflare: x-forwarded-proto: https e o IP do visitante ACRESCENTADO ao fim de
+            #     x-forwarded-for (o que o visitante mandou vem antes, então só o último valor vale);
+            #   - Traefik (rede local): descarta os x-forwarded-* que chegam e grava os seus (http e o
+            #     IP de quem o alcançou).
+            # Por isso XFF_DEPTH=1 (o último valor) serve aos dois. O host vem do cabeçalho Host, que os
+            # dois caminhos preservam; HOST_HEADER fica de fora de propósito: com ele, um x-forwarded-host
+            # enviado pelo visitante pelo túnel passaria a mandar nos links absolutos.
+            - name: PROTOCOL_HEADER
+              value: x-forwarded-proto
+            - name: ADDRESS_HEADER
+              value: x-forwarded-for
+            - name: XFF_DEPTH
+              value: '1'
+            # /admin só existe por HTTPS, ou seja, pelo túnel (onde o Cloudflare Access o protege): pela
+            # rede local, que é HTTP puro, ele responde 404.
+            - name: ADMIN_REQUIRE_HTTPS
+              value: 'true'
+            # Do Secret `inkmark`, criado uma vez no servidor; nunca no repositório nem na imagem.
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: inkmark
+                  key: admin-password
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: inkmark
+                  key: session-secret
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 30
+            failureThreshold: 4
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        # Banco e sessões no disco do servidor, nunca na imagem: um deploy novo não os toca.
+        - name: data
+          hostPath:
+            path: /srv/inkmark/data
+            type: Directory
+        - name: tmp
+          emptyDir: {}

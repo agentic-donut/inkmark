@@ -1,0 +1,77 @@
+# Túnel gerenciado remotamente: o cloudflared abre conexões de SAÍDA até a Cloudflare e entrega os
+# pedidos do hostname público ao Service do app (o destino é configurado no painel da Cloudflare:
+# HTTP, inkmark.inkmark.svc.cluster.local:80). Nenhuma porta do servidor é aberta para a internet.
+# Uma réplica: o servidor é um nó só, então uma segunda não sobreviveria à queda dele. Na troca de
+# versão a nova sobe antes de a antiga sair (maxSurge/maxUnavailable). Ninguém entra neste pod
+# (NetworkPolicy).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflared
+  labels:
+    app.kubernetes.io/name: cloudflared
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cloudflared
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: cloudflared
+    spec:
+      enableServiceLinks: false
+      automountServiceAccountToken: false
+      securityContext:
+        # O usuário `nonroot` da imagem (distroless).
+        runAsUser: 65532
+        runAsGroup: 65532
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: cloudflared
+          # Versão e digest fixos (índice multiarquitetura do 2026.10.0): a imagem não muda sozinha.
+          # Para atualizar: nova versão e novo digest (`docker buildx imagetools inspect <imagem>:<versão>`).
+          image: cloudflare/cloudflared:2026.10.0@sha256:9b49eed8f62806d5d45ddf59ecefb5710429598ea6d3fcccd2af938f621b2b07
+          args: [tunnel, --no-autoupdate, --metrics, '0.0.0.0:2000', run]
+          env:
+            # Do Secret `cloudflared`, criado uma vez no servidor com o token do painel da Cloudflare.
+            - name: TUNNEL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflared
+                  key: token
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          ports:
+            - name: metrics
+              containerPort: 2000
+          # /ready responde 200 só com pelo menos uma conexão ativa com a borda da Cloudflare.
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: metrics
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: metrics
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 20m
+              memory: 48Mi
+            limits:
+              memory: 256Mi

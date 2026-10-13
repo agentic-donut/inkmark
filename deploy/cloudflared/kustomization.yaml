@@ -1,0 +1,7 @@
+# O túnel da Cloudflare, aplicado pelo deploy ao lado do app. O Secret `cloudflared` (chave `token`)
+# é criado uma vez no servidor, nunca aqui.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: inkmark
+resources:
+  - deployment.yaml

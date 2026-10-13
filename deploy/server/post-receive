@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# O repositório de deploy do servidor, ~/inkmark.git: um push que move a main faz o deploy do commit
+# para o qual ela foi, com a saída de volta para o push e em ~/inkmark-deploy/logs/<commit>.log.
+# Qualquer outra ref, e uma main apagada, não fazem deploy (o hook `update` recusa as duas de qualquer jeito).
+set -euo pipefail
+
+hooks="$(cd "$(dirname "$0")" && pwd)"
+readonly hooks
+readonly deleted=0000000000000000000000000000000000000000
+
+while read -r _old new ref; do
+  [ "$ref" = refs/heads/main ] || continue
+  [ "$new" != "$deleted" ] || continue
+  # A saída do hook não desfaz o push: um deploy que falhou é contado no log e ao push.
+  "$hooks/start-deploy" "$new" || true
+done

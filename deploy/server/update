@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# O repositório de deploy do servidor aceita só a main, e só andando para a frente: outra ref, apagar
+# a main, ou uma main que não descende da que ele guarda (emendada ou rebaseada) é recusada, e nada
+# é implantado.
+set -euo pipefail
+
+readonly ref="$1" old="$2" new="$3"
+readonly none=0000000000000000000000000000000000000000
+
+refuse() {
+  echo "inkmark.git: $*" >&2
+  exit 1
+}
+
+[ "$ref" = refs/heads/main ] || refuse "aqui só a main é implantada, não $ref"
+[ "$new" != "$none" ] || refuse "a main nunca é apagada aqui"
+if [ "$old" != "$none" ] && ! git merge-base --is-ancestor "$old" "$new"; then
+  refuse "esta main não descende da que está implantada: nunca emende nem rebaseie uma main enviada"
+fi

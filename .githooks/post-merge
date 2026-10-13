@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Um merge na main (--ff-only, um pull) faz o deploy dela.
+exec "$(dirname "$0")/deploy-main"

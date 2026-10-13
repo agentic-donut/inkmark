@@ -1,0 +1,19 @@
+# Motor legado: não é reformatado (ver docs/arquitetura.md)
+src/lib/domain/logo/engine.js
+src/lib/domain/logo/kit.js
+src/lib/domain/logo/badges.js
+src/lib/domain/logo/proposals.js
+src/lib/domain/logo/proposals4.js
+src/lib/domain/logo/proposals5.js
+src/lib/domain/logo/proposals6.js
+src/lib/domain/logo/proposals7.js
+src/lib/domain/logo/ink.js
+
+scripts/
+static/
+build/
+.svelte-kit/
+node_modules/
+data/
+package-lock.json
+docs/

@@ -1,0 +1,196 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"meta_title": "Inkmark",
+	"meta_description": "Create monochrome logos from lettering, seal and emblem templates. Export vector SVG and PNG in light and dark versions.",
+	"count_compositions": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} composition",
+				"countPlural=other": "{count} compositions"
+			}
+		}
+	],
+	"count_typefaces": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} typeface",
+				"countPlural=other": "{count} typefaces"
+			}
+		}
+	],
+	"masthead_this_edition": "In this edition",
+	"masthead_contents": "{compositions}, {fonts} and four print effects",
+	"masthead_price_label": "Price per copy",
+	"masthead_price_text": "Free. Printed in your browser, no sign-up",
+	"dateline_issue": "Year I · No. {issue}",
+	"dateline_edition_light": "Light edition",
+	"dateline_edition_dark": "Night edition",
+	"headline_title": "Your brand, printed today.",
+	"headline_subtitle": "Write the name, pick a composition and take the file as SVG or PNG.",
+	"newsroom_title": "The newsroom",
+	"newsroom_reset": "Reset",
+	"live_proof_title": "Live proof",
+	"edition_title": "Edition",
+	"edition_light": "Light",
+	"edition_dark": "Night",
+	"ink_title": "Ink",
+	"typefaces_title": "The typefaces",
+	"ornament_title": "Ornament",
+	"field_name": "Name",
+	"field_topline": "Above",
+	"field_topline_hint": "text above the name",
+	"field_tagline": "Below",
+	"field_tagline_hint": "text below the name",
+	"fonts_legend": "Brand typeface",
+	"font_custom": "My font",
+	"fonts_more": "More typefaces ({count})",
+	"fonts_less": "Fewer typefaces",
+	"range_size": "Size",
+	"range_spacing": "Spacing",
+	"range_tilt": "Tilt",
+	"ornament_none": "None",
+	"ornament_stars": "Stars",
+	"ornament_diamond": "Diamond",
+	"ornament_mountain": "Mountain",
+	"font_upload_question": "Got a font of your own?",
+	"font_upload_text": "Upload a .ttf or .otf file and the composition will use it.",
+	"font_upload_input_label": "Import TTF or OTF font",
+	"font_upload_button": "Use my font (.ttf/.otf)",
+	"wear_title": "Ink wear",
+	"halftone_title": "Halftone",
+	"pressure_title": "Uneven pressure",
+	"bleed_title": "Spread ink",
+	"effect_option_label": "{effect}: {level}",
+	"effect_level_0": "None",
+	"effect_level_1": "Light",
+	"effect_level_2": "Medium",
+	"effect_level_3": "Strong",
+	"caption_named": "Pictured: the {brand} brand in the {template} composition, {effects}.",
+	"caption_unnamed": "Pictured: your brand in the {template} composition, {effects}.",
+	"caption_effects_none": "with no wear",
+	"caption_with": "with {effects}",
+	"caption_wear_1": "light wear",
+	"caption_wear_2": "medium wear",
+	"caption_wear_3": "heavy wear",
+	"caption_halftone_1": "light halftone",
+	"caption_halftone_2": "medium halftone",
+	"caption_halftone_3": "strong halftone",
+	"caption_pressure_1": "light uneven pressure",
+	"caption_pressure_2": "medium uneven pressure",
+	"caption_pressure_3": "strong uneven pressure",
+	"caption_bleed_1": "light ink spread",
+	"caption_bleed_2": "medium ink spread",
+	"caption_bleed_3": "strong ink spread",
+	"lead_photo_label": "Preview of the {name} logo",
+	"lead_loading": "Setting the page…",
+	"lead_error": "Couldn’t load this edition’s typefaces. Reload the page to try again.",
+	"ad_label": "Advertisement",
+	"ad_kicker": "— ADVERTISEMENT —",
+	"ad_title": "Take your brand",
+	"ad_text": "Vector SVG and hi-res PNG,\nin light and dark versions.",
+	"ad_button": "Export now",
+	"ad_hint": "Give your brand a name to export.",
+	"export_close": "Close",
+	"export_kicker": "From the screen to the world",
+	"export_title": "Take your brand.",
+	"export_subtitle": "Every detail, at any size.",
+	"export_variant_label": "Version",
+	"export_variant_both": "Light + dark (ZIP)",
+	"export_variant_light": "Light — black logo",
+	"export_variant_dark": "Dark — white logo",
+	"export_format_label": "Format",
+	"export_format_both": "SVG + PNG",
+	"export_format_svg": "SVG — vector outlines",
+	"export_format_png": "PNG — high-resolution image",
+	"export_resolution_label": "PNG resolution",
+	"export_transparent": "Transparent background",
+	"export_note": "Letters are converted to outlines, so no font installation is needed. With wear, halftone, uneven pressure or spread ink applied, the SVG carries filters and masks that most editors rasterize; for pure vector, set all four effects to “None”.",
+	"export_submit": "Download files",
+	"export_status_preparing": "Preparing your files…",
+	"export_status_done": "Files ready. Download started.",
+	"export_status_failed": "Couldn’t export. Please try again.",
+	"classifieds_title": "Classifieds",
+	"classifieds_categories_label": "Categories",
+	"category_all": "All",
+	"category_Lettering": "Lettering",
+	"category_Selos": "Seals",
+	"category_Emblemas": "Emblems",
+	"category_one_Lettering": "Lettering",
+	"category_one_Selos": "Seal",
+	"category_one_Emblemas": "Emblem",
+	"classifieds_sheet": "Download sheet",
+	"classifieds_sheet_busy": "Assembling…",
+	"classifieds_use_my_name": "See it with my brand name",
+	"classifieds_range": "Compositions {first} to {last} of {total}",
+	"classifieds_total": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} composition on display",
+				"countPlural=other": "{count} compositions on display"
+			}
+		}
+	],
+	"classifieds_empty": "No compositions in this section.",
+	"classifieds_pages_label": "Classifieds pages",
+	"card_featured": "★ Featured",
+	"card_selected": "In use",
+	"card_meta": "{category} · No. {number}",
+	"pagefolio_previous": "← Previous page",
+	"pagefolio_go_to": "Go to page {page}",
+	"pagefolio_current": "Page {page} of {pageCount}",
+	"pagefolio_page_label": "Page {page}",
+	"pagefolio_next_long": "Continued on page {page} →",
+	"pagefolio_next_short": "page {page} →",
+	"pagefolio_end": "End of the edition",
+	"folio_page": "The Inkmark · page {page}",
+	"folio_free": "Everything in this edition is yours to use",
+	"folio_compositions": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} composition in this edition",
+				"countPlural=other": "{count} compositions in this edition"
+			}
+		}
+	],
+	"toast_font_imported": "Font imported.",
+	"toast_font_invalid": "Couldn’t read that font. Use a valid TTF or OTF file.",
+	"toast_file_unreadable": "Couldn’t read that file.",
+	"toast_reset": "Settings restored.",
+	"toast_template_selected": "Now using: {name}. See it in the live proof.",
+	"toast_export_done": "Your brand is ready. Enjoy!",
+	"toast_sheet_done": "Sheet ready. Download started.",
+	"toast_sheet_failed": "Couldn’t build the sheet.",
+	"toast_fonts_failed": "Couldn’t load this edition’s typefaces.",
+	"contact_sheet_filename": "inkmark-sheet.svg",
+	"export_suffix_light": "light",
+	"export_suffix_dark": "dark",
+	"language_switcher_label": "Language"
+}

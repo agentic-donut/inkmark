@@ -1,0 +1,14 @@
+# A porta 80 do Service é o destino do Traefik e do túnel (http://inkmark.inkmark.svc.cluster.local:80).
+apiVersion: v1
+kind: Service
+metadata:
+  name: inkmark
+  labels:
+    app.kubernetes.io/name: inkmark
+spec:
+  selector:
+    app.kubernetes.io/name: inkmark
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

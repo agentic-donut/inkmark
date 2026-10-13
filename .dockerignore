@@ -1,0 +1,17 @@
+# Só o código entra no build: nada de segredos, banco, dependências locais ou artefatos.
+.git
+node_modules
+build
+.svelte-kit
+src/lib/paraglide
+data
+*.db
+*.db-*
+.env
+.env.*
+docs
+deploy
+.githooks
+.idea
+.DS_Store
+*.log

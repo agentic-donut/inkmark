@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Inicia o deploy de um commit numa sessão própria, com a saída em ~/inkmark-deploy/logs/<commit>.log,
+# e acompanha esse log até o deploy acabar: um push ou uma conexão ssh que cai encerra só o
+# acompanhamento, nunca o deploy.
+#
+#   start-deploy <commit>
+#
+# O post-receive o chama quando a main é enviada; `npm run deploy` o chama por ssh quando o
+# servidor já tem a main.
+set -euo pipefail
+
+readonly commit="$1"
+hooks="$(cd "$(dirname "$0")" && pwd)"
+readonly hooks
+readonly logs="$HOME/inkmark-deploy/logs"
+readonly log="$logs/$commit.log"
+
+mkdir -p "$logs"
+# Anexado: um deploy deste commit ainda pode estar rodando, e o log dele nunca é esvaziado por baixo.
+printf '\n== %s deploy de %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$commit" >>"$log"
+start="$(wc -l <"$log")"
+readonly start
+setsid nohup "$hooks/deploy.sh" "$commit" >>"$log" 2>&1 </dev/null &
+readonly deploy=$!
+tail --lines=+"$start" --follow --pid="$deploy" "$log"
+# Como acabou, para quem espera: um acompanhante que caiu nunca chega aqui.
+wait "$deploy"

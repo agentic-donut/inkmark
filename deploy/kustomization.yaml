@@ -1,0 +1,14 @@
+# Inkmark num k3s de servidor próprio. O deploy aplica este kustomization com um overlay
+# que dá ao `images:` a tag do commit construído. O túnel público é outro kustomization
+# (cloudflared/), aplicado à parte: os dois não compartilham rótulos nem seletores.
+# O namespace inkmark e os Secrets `inkmark` (admin-password e session-secret) e `cloudflared`
+# (token) são criados uma vez no servidor, fora daqui: nem as senhas nem o token passam pelo
+# repositório.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: inkmark
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - networkpolicy.yaml

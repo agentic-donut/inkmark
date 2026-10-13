@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Um rebase que moveu a main faz o deploy dela. Um amend é do post-commit: ele roda depois de um também.
+[ "${1:-}" = rebase ] || exit 0
+exec "$(dirname "$0")/deploy-main"

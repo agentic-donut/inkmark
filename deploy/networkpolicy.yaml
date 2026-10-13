@@ -1,0 +1,38 @@
+# Quem pode falar com os pods do namespace. As políticas somam: a primeira fecha tudo (ninguém entra
+# em nenhum pod, o cloudflared incluso), a segunda abre a porta do app para quem deve.
+# Só entrada (Ingress) é restrita; a saída fica livre (o cloudflared precisa chegar à Cloudflare).
+# O kubelet, que roda no próprio nó, continua alcançando os pods para as sondas.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+# O app aceita a porta 3000 só do cloudflared (túnel) e do Traefik (rede local, no kube-system).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: inkmark
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: inkmark
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: cloudflared
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+      ports:
+        - protocol: TCP
+          port: 3000

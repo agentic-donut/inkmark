@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Um commit na main faz o deploy dela.
+exec "$(dirname "$0")/deploy-main"
