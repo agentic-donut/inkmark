@@ -298,5 +298,10 @@
 	"outlined-ring": "Nombre en contorno de pegatina atravesando el anillo.",
 	"extrude-badge": "Escudo redondeado con el nombre extruido.",
 	"tiles-seal": "Sello circular con el nombre en celdas.",
-	"speed-seal": "Sello con el nombre inclinado y líneas de velocidad."
+	"speed-seal": "Sello con el nombre inclinado y líneas de velocidad.",
+	"echo-stack": "Nombre sólido entre copias caladas que se superponen arriba y abajo.",
+	"sliced": "Nombre cortado en horizontal, con la mitad inferior desplazada a la derecha.",
+	"justified-block": "Líneas justificadas al mismo ancho, que forman un bloque entre filetes.",
+	"bento": "Rectángulo dividido en celdas, con el símbolo de la marca en una celda llena, como en la tabla periódica.",
+	"spec-label": "Etiqueta técnica de esquina achaflanada, con franja superior y campos en la base."
 }

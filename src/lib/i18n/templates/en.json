@@ -298,5 +298,10 @@
 	"outlined-ring": "Sticker-outlined name crossing the ring.",
 	"extrude-badge": "Rounded shield with an extruded name.",
 	"tiles-seal": "Round seal with the name in tiles.",
-	"speed-seal": "Seal with a slanted name and speed lines."
+	"speed-seal": "Seal with a slanted name and speed lines.",
+	"echo-stack": "Solid name between overlapping outlined copies above and below.",
+	"sliced": "Name cut horizontally, with the lower half slid to the right.",
+	"justified-block": "Lines justified to the same width, forming a block between rules.",
+	"bento": "Rectangle split into cells, with the brand symbol in a solid cell, like the periodic table.",
+	"spec-label": "Technical label with a chamfered corner, a top band and fields at the base."
 }

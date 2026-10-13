@@ -58,7 +58,7 @@ describe('motor de logos', () => {
 			'round-plate',
 			'bow-hex'
 		]);
-		expect(templates.length).toBe(300);
+		expect(templates.length).toBe(305);
 		expect(new Set(templates.map((t) => t.id)).size).toBe(templates.length);
 		expect(new Set(templates.map((t) => t.name)).size).toBe(templates.length);
 		for (const t of templates) expect(['Lettering', 'Selos', 'Emblemas']).toContain(t.category);

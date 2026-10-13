@@ -1,4 +1,4 @@
-// Registro de modelos: cada fonte de modelos (motor original, selos, rodadas 3 a 7) declara
+// Registro de modelos: cada fonte de modelos (motor original, selos, rodadas 3 a 8) declara
 // suas definições e seu renderizador. Acrescentar uma rodada é registrar uma nova fonte,
 // sem tocar no despacho.
 import {templates as originalTemplates, renderLogo as renderOriginal} from './engine.js';
@@ -8,6 +8,7 @@ import {round4Templates, renderRound4} from './proposals4.js';
 import {round5Templates, renderRound5} from './proposals5.js';
 import {round6Templates, renderRound6} from './proposals6.js';
 import {round7Templates, renderRound7} from './proposals7.js';
+import {round8Templates, renderRound8} from './proposals8.js';
 export {fonts, registerFont} from './engine.js';
 
 /** Adapta renderizadores no formato (id, config, variant, background) ao formato do registro. */
@@ -35,6 +36,7 @@ registerSource({definitions: round4Templates, render: byId(renderRound4)});
 registerSource({definitions: round5Templates, render: byId(renderRound5)});
 registerSource({definitions: round6Templates, render: byId(renderRound6)});
 registerSource({definitions: round7Templates, render: byId(renderRound7)});
+registerSource({definitions: round8Templates, render: byId(renderRound8)});
 
 /** Modelo desconhecido cai no renderizador do motor original, que usa o primeiro modelo. */
 export function renderLogo(config = {}, variant = 'light', background = true) {

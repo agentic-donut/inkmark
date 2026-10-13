@@ -298,5 +298,10 @@
 	"outlined-ring": "Nome em contorno de adesivo atravessando o anel.",
 	"extrude-badge": "Escudo arredondado com o nome extrudado.",
 	"tiles-seal": "Selo circular com o nome em células.",
-	"speed-seal": "Selo com o nome inclinado e linhas de velocidade."
+	"speed-seal": "Selo com o nome inclinado e linhas de velocidade.",
+	"echo-stack": "Nome sólido entre cópias vazadas que se sobrepõem acima e abaixo.",
+	"sliced": "Nome cortado na horizontal, com a metade de baixo deslizada para a direita.",
+	"justified-block": "Linhas justificadas na mesma largura, formando um bloco entre filetes.",
+	"bento": "Retângulo em células, com o símbolo da marca numa célula cheia, como na tabela periódica.",
+	"spec-label": "Etiqueta técnica de canto chanfrado, com faixa de topo e campos na base."
 }

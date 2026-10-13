@@ -1,4 +1,4 @@
-// Pranchas das rodadas de propostas: node scripts/review-rounds.mjs [3|4|5|6|7]
+// Pranchas das rodadas de propostas: node scripts/review-rounds.mjs [3|4|5|6|7|8]
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {Resvg} from '@resvg/resvg-js';
 import {fonts,registerFont} from '../src/lib/domain/logo/engine.js';
@@ -7,8 +7,9 @@ import {round4Templates,renderRound4} from '../src/lib/domain/logo/proposals4.js
 import {round5Templates,renderRound5} from '../src/lib/domain/logo/proposals5.js';
 import {round6Templates,renderRound6} from '../src/lib/domain/logo/proposals6.js';
 import {round7Templates,renderRound7} from '../src/lib/domain/logo/proposals7.js';
+import {round8Templates,renderRound8} from '../src/lib/domain/logo/proposals8.js';
 const round=process.argv[2]??'6';
-const [proposals,renderProposal]={3:[proposalTemplates,render3],4:[round4Templates,renderRound4],5:[round5Templates,renderRound5],6:[round6Templates,renderRound6],7:[round7Templates,renderRound7]}[round];
+const [proposals,renderProposal]={3:[proposalTemplates,render3],4:[round4Templates,renderRound4],5:[round5Templates,renderRound5],6:[round6Templates,renderRound6],7:[round7Templates,renderRound7],8:[round8Templates,renderRound8]}[round];
 for(const f of fonts){const b=readFileSync(new URL(`../static/fonts/${f.id}.ttf`,import.meta.url));registerFont(f.id,b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));}
 const output=new URL(`../docs/review/propostas/rodada-${round}/`,import.meta.url);mkdirSync(output,{recursive:true});
 function save(name,svg){writeFileSync(new URL(`${name}.svg`,output),svg);writeFileSync(new URL(`${name}.png`,output),new Resvg(svg).render().asPng());}
