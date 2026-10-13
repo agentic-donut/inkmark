@@ -58,7 +58,7 @@ describe('motor de logos', () => {
 			'round-plate',
 			'bow-hex'
 		]);
-		expect(templates.length).toBe(305);
+		expect(templates.length).toBe(317);
 		expect(new Set(templates.map((t) => t.id)).size).toBe(templates.length);
 		expect(new Set(templates.map((t) => t.name)).size).toBe(templates.length);
 		for (const t of templates) expect(['Lettering', 'Selos', 'Emblemas']).toContain(t.category);
@@ -79,7 +79,8 @@ describe('motor de logos', () => {
 	});
 
 	test('os novos modelos respondem aos controles de tamanho, espaçamento e ornamento', () => {
-		const normalize = (svg: string) => svg.replace(/(?:mono|proposal|kit|r7)-cut-\d+/g, 'cut-ID');
+		const normalize = (svg: string) =>
+			svg.replace(/(?:mono|proposal|kit|r7|type)-cut-\d+/g, 'cut-ID');
 		for (const t of templates.filter((t) => t.sample)) {
 			const config: Partial<LogoConfig> = {
 				template: t.id,

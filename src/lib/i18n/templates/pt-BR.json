@@ -303,5 +303,17 @@
 	"sliced": "Nome cortado na horizontal, com a metade de baixo deslizada para a direita.",
 	"justified-block": "Linhas justificadas na mesma largura, formando um bloco entre filetes.",
 	"bento": "Retângulo em células, com o símbolo da marca numa célula cheia, como na tabela periódica.",
-	"spec-label": "Etiqueta técnica de canto chanfrado, com faixa de topo e campos na base."
+	"spec-label": "Etiqueta técnica de canto chanfrado, com faixa de topo e campos na base.",
+	"tri-band": "Nome sozinho entre duas faixas sólidas com os textos vazados, como nas capas da Penguin.",
+	"subway-sign": "Placa de metrô: faixa sólida, inicial num círculo e seta antes do texto de baixo.",
+	"credits-block": "Nome sobre uma linha de créditos de cinema, com palavras curtas empilhadas em meia altura.",
+	"pharma-stripe": "Texto de cima como expoente do nome e texto de baixo numa tarja sólida, como em remédio.",
+	"glyph-field": "Inicial repetida em grade, com uma clareira para o nome.",
+	"repeat-tape": "Nome repetido e vazado numa faixa, cortado pelas bordas.",
+	"reflection": "Nome refletido por baixo, dissolvido em listras.",
+	"giant-initial": "Inicial enorme em contorno, cortada pela moldura, atrás do nome.",
+	"overlap-letters": "Letras encavaladas e levemente giradas, separadas por um vão.",
+	"weight-ramp": "Nome que vai do contorno fino na primeira letra ao cheio na última.",
+	"shape-letter": "O primeiro O do nome vira um disco sólido; sem O, um disco fecha o nome como ponto final.",
+	"big-quotes": "Nome entre aspas grandes, como um rótulo."
 }

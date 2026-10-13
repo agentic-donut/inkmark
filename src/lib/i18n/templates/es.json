@@ -303,5 +303,17 @@
 	"sliced": "Nombre cortado en horizontal, con la mitad inferior desplazada a la derecha.",
 	"justified-block": "Líneas justificadas al mismo ancho, que forman un bloque entre filetes.",
 	"bento": "Rectángulo dividido en celdas, con el símbolo de la marca en una celda llena, como en la tabla periódica.",
-	"spec-label": "Etiqueta técnica de esquina achaflanada, con franja superior y campos en la base."
+	"spec-label": "Etiqueta técnica de esquina achaflanada, con franja superior y campos en la base.",
+	"tri-band": "Nombre solo entre dos franjas sólidas con los textos calados, como en las portadas de Penguin.",
+	"subway-sign": "Cartel de metro: franja sólida, inicial en un círculo y flecha antes del texto de abajo.",
+	"credits-block": "Nombre sobre una línea de créditos de cine, con palabras cortas apiladas a media altura.",
+	"pharma-stripe": "Texto de arriba como exponente del nombre y texto de abajo en una franja sólida, como en un medicamento.",
+	"glyph-field": "Inicial repetida en una cuadrícula, con un claro para el nombre.",
+	"repeat-tape": "Nombre repetido y calado en una franja, cortado por los bordes.",
+	"reflection": "Nombre reflejado por debajo, disuelto en franjas.",
+	"giant-initial": "Inicial enorme en contorno, cortada por el marco, detrás del nombre.",
+	"overlap-letters": "Letras superpuestas y levemente giradas, separadas por un hueco.",
+	"weight-ramp": "Nombre que va del contorno fino en la primera letra al relleno en la última.",
+	"shape-letter": "La primera O del nombre se convierte en un disco sólido; sin O, un disco cierra el nombre como punto final.",
+	"big-quotes": "Nombre entre comillas grandes, como una etiqueta."
 }

@@ -1,5 +1,6 @@
 import {fitText,fittedTextBounds} from './engine.js';
 import {weight,n,path,line,cut,svgDoc,textKit} from './kit.js';
+import {rect,hash,stroked,partition,nameBlock,drawBlock,justify} from './typeset.js';
 
 // Rodada 8: estruturas fora do território selo/emblema, escolhidas da pesquisa de 2026-10-13.
 // A própria tipografia faz a forma (eco, fatia, bloco justificado) ou a forma é um documento
@@ -12,45 +13,6 @@ export const round8Templates=[
  t('bento','Bento cell','Emblemas','AlfaSlabOne','WILD COAST','Retângulo em células, com o símbolo da marca numa célula cheia, como na tabela periódica.',{topline:'SURF SUPPLY'}),
  t('spec-label','Spec label','Emblemas','Oswald','NORTHFIELD','Etiqueta técnica de canto chanfrado, com faixa de topo e campos na base.',{topline:'OUTDOOR EQUIPMENT',tagline:'MADE IN BRAZIL'}),
 ];
-
-const rect=(x,y,w,h)=>`<rect x="${n(x)}" y="${n(y)}" width="${n(w)}" height="${n(h)}"/>`;
-// Número estável derivado do nome, para séries e códigos de barras.
-const hash=s=>[...String(s)].reduce((h,ch)=>(h*31+ch.charCodeAt(0))>>>0,7);
-// Contornos de texto só com traço; a espessura é dividida pela escala de cada contorno.
-const stroked=(svg,w)=>svg.replace(/<path d="([^"]*)" transform="([^"]*)"\s*\/>/g,(_,d,tr)=>{const s=Number(/scale\(([-\d.]+)\)/.exec(tr)?.[1]??1);return `<path d="${d}" transform="${tr}" fill="none" stroke="currentColor" stroke-width="${n(w/s)}" stroke-linejoin="round"/>`;});
-
-// Divide as palavras em k linhas de comprimento parecido (menor linha mais longa).
-function partition(words,k){
- if(k<=1||words.length<=1)return [words.join(' ')];
- let best=null,score=Infinity;
- for(let i=1;i<=words.length-k+1;i++){
-  const rest=partition(words.slice(i),k-1),lines=[words.slice(0,i).join(' '),...rest],worst=Math.max(...lines.map(s=>s.length));
-  if(rest.length===k-1&&worst<score){score=worst;best=lines;}
- }
- return best??[words.join(' ')];
-}
-// Nome em até maxLines linhas com a mesma altura de letra, cabendo em w × h. Fica com o número
-// de linhas que deixa a letra maior; uma linha a mais só entra se ganhar mais de 10%.
-function nameBlock(text,font,w,h,{maxLines=2,gap=8,maxLine=Infinity,o}){
- const words=String(text).trim().split(/\s+/).filter(Boolean);let best=null;
- for(let k=1;k<=Math.min(maxLines,words.length||1);k++){
-  const lines=partition(words,k),widest=Math.max(...lines.map(s=>fittedTextBounds(s,font,1e6,100,o).width/100));
-  const lh=Math.min(maxLine,(h-(k-1)*gap)/k,w/Math.max(.01,widest));
-  if(!best||lh>best.lh*1.1)best={lines,lh};
- }
- const {lines,lh}=best;
- return {lines,lh,gap,height:lines.length*lh+(lines.length-1)*gap,widths:lines.map(s=>fittedTextBounds(s,font,w,lh,o).width)};
-}
-// Desenha o bloco com o centro vertical em cy; x é o centro (align 0) ou a borda esquerda (align 1).
-const drawBlock=(b,font,x,cy,o,align=0)=>b.lines.map((s,i)=>fitText(s,font,x+align*b.widths[i]/2,cy-b.height/2+b.lh/2+i*(b.lh+b.gap),1e6,b.lh,o)).join('');
-// Espaçamento que faz o texto ocupar exatamente a largura w com a altura h.
-function justify(text,font,w,h,o){
- const width=s=>fittedTextBounds(text,font,1e6,h,{...o,spacing:s}).width;
- if(width(o.spacing??0)>=w)return {...o};
- let lo=o.spacing??0,hi=lo+400;
- for(let i=0;i<28;i++){const mid=(lo+hi)/2;if(width(mid)<w)lo=mid;else hi=mid;}
- return {...o,spacing:lo};
-}
 
 export function renderRound8(id,config={},variant='light',background=true){
  const p=round8Templates.find(p=>p.id===id);if(!p)throw new Error('Modelo desconhecido.');

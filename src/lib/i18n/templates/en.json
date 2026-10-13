@@ -303,5 +303,17 @@
 	"sliced": "Name cut horizontally, with the lower half slid to the right.",
 	"justified-block": "Lines justified to the same width, forming a block between rules.",
 	"bento": "Rectangle split into cells, with the brand symbol in a solid cell, like the periodic table.",
-	"spec-label": "Technical label with a chamfered corner, a top band and fields at the base."
+	"spec-label": "Technical label with a chamfered corner, a top band and fields at the base.",
+	"tri-band": "Name alone between two solid bands with knocked-out text, like the Penguin covers.",
+	"subway-sign": "Subway sign: solid band, initial in a circle and an arrow before the bottom text.",
+	"credits-block": "Name over a film credits line, with short words stacked at half height.",
+	"pharma-stripe": "Top text as a superscript to the name and bottom text in a solid stripe, like on medicine.",
+	"glyph-field": "Initial repeated in a grid, with a clearing for the name.",
+	"repeat-tape": "Name repeated and knocked out of a band, cropped at the edges.",
+	"reflection": "Name reflected underneath, dissolving into stripes.",
+	"giant-initial": "Huge outlined initial, cropped by the frame, behind the name.",
+	"overlap-letters": "Letters overlapping and slightly rotated, separated by a gap.",
+	"weight-ramp": "Name going from a thin outline on the first letter to solid on the last.",
+	"shape-letter": "The first O in the name becomes a solid disc; with no O, a disc ends the name like a full stop.",
+	"big-quotes": "Name between large quotation marks, like a label."
 }

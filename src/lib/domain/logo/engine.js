@@ -31,7 +31,8 @@ const path=(d,attrs='')=>`<path d="${d}" ${attrs}/>`;
 const outline=(d,w=2)=>path(d,`fill="none" stroke="currentColor" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`);
 const circle=(x,y,r,w=2)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="currentColor" stroke-width="${w}"/>`;
 const solidCircle=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}"/>`;
-function getFont(id){return loaded[id]||loaded.BarlowCondensed||loaded.BebasNeue;}
+/** Fonte carregada (opentype), para quem posiciona letra a letra; sem a pedida, cai numa condensada. */
+export function getFont(id){return loaded[id]||loaded.BarlowCondensed||loaded.BebasNeue;}
 function textPath(text,fontId,spacing=0){
   if(!String(text).trim())return null;
   const font=getFont(fontId);if(!font)throw new Error('Carregue as fontes antes de renderizar.');
