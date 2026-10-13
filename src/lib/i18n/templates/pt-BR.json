@@ -315,5 +315,21 @@
 	"overlap-letters": "Letras encavaladas e levemente giradas, separadas por um vão.",
 	"weight-ramp": "Nome que vai do contorno fino na primeira letra ao cheio na última.",
 	"shape-letter": "O primeiro O do nome vira um disco sólido; sem O, um disco fecha o nome como ponto final.",
-	"big-quotes": "Nome entre aspas grandes, como um rótulo."
+	"big-quotes": "Nome entre aspas grandes, como um rótulo.",
+	"eye-chart": "Tabela de exame de vista: linhas do nome cada vez menores, com frações e números nas margens.",
+	"dictionary-entry": "Verbete de dicionário: sílabas separadas por pontos, pronúncia entre barras e definição numerada.",
+	"crossword": "Palavras cruzadas: o nome na horizontal e as palavras dos outros textos cruzando nas letras em comum.",
+	"dimension-lines": "Desenho técnico: linhas-guia, cota da largura total e cotas de cada letra medidas no próprio nome.",
+	"punch-card": "Cartão perfurado com o código real de cada letra do nome nas perfurações.",
+	"bleed-crop": "Nome maior que a moldura, cortado nas pontas e no topo das letras.",
+	"knockout-band": "Faixa sólida atravessando o nome, com as letras vazadas dentro dela.",
+	"playing-card": "Nome em cima e girado 180° embaixo, como numa carta de baralho.",
+	"perspective": "Nome deitado num plano que foge para o horizonte.",
+	"book-spines": "Cada palavra vira uma lombada de livro em pé, alternando o sentido de leitura.",
+	"halftone": "Nome preenchido por pontos de retícula que crescem da esquerda para a direita.",
+	"triline": "Três linhas paralelas acompanhando o contorno das letras, com o miolo vazio.",
+	"label-tape": "Fitas de rotuladora com as letras em relevo vazadas, uma por palavra.",
+	"jersey-number": "Costas de camisa: nome em arco sobre um número com contorno duplo, tirado dos dígitos do texto de cima.",
+	"price-sign": "Cartaz de oferta: a última palavra sobe como os centavos e o texto de cima fica vazado numa tarja.",
+	"shopfront": "Letreiro pintado: nome esticado até a borda e o texto de cima em letra cursiva cruzando o canto."
 }

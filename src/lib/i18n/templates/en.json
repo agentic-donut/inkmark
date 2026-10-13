@@ -315,5 +315,21 @@
 	"overlap-letters": "Letters overlapping and slightly rotated, separated by a gap.",
 	"weight-ramp": "Name going from a thin outline on the first letter to solid on the last.",
 	"shape-letter": "The first O in the name becomes a solid disc; with no O, a disc ends the name like a full stop.",
-	"big-quotes": "Name between large quotation marks, like a label."
+	"big-quotes": "Name between large quotation marks, like a label.",
+	"eye-chart": "Eye-test chart: rows of the name getting smaller, with fractions and numbers in the margins.",
+	"dictionary-entry": "Dictionary entry: syllables split by dots, pronunciation between slashes and a numbered definition.",
+	"crossword": "Crossword: the name runs across and words from the other texts cross it at shared letters.",
+	"dimension-lines": "Technical drawing: guide lines, overall width and per-letter dimensions measured from the name itself.",
+	"punch-card": "Punch card with the real code of each letter of the name in the holes.",
+	"bleed-crop": "Name larger than its frame, cropped at the ends and across the top of the letters.",
+	"knockout-band": "Solid band across the name, with the letters knocked out inside it.",
+	"playing-card": "Name on top and rotated 180° below, like a playing card.",
+	"perspective": "Name laid on a plane receding toward the horizon.",
+	"book-spines": "Each word becomes an upright book spine, alternating reading direction.",
+	"halftone": "Name filled with halftone dots that grow from left to right.",
+	"triline": "Three parallel lines following the outline of the letters, with hollow centers.",
+	"label-tape": "Label-maker tapes with embossed knocked-out letters, one per word.",
+	"jersey-number": "Jersey back: name arched over a double-outlined number taken from the digits of the top text.",
+	"price-sign": "Sale sign: the last word rises like the cents and the top text is knocked out of a band.",
+	"shopfront": "Painted shop sign: name stretched to the edge and the top text in script crossing the corner."
 }

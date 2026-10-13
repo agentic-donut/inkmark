@@ -315,5 +315,21 @@
 	"overlap-letters": "Letras superpuestas y levemente giradas, separadas por un hueco.",
 	"weight-ramp": "Nombre que va del contorno fino en la primera letra al relleno en la última.",
 	"shape-letter": "La primera O del nombre se convierte en un disco sólido; sin O, un disco cierra el nombre como punto final.",
-	"big-quotes": "Nombre entre comillas grandes, como una etiqueta."
+	"big-quotes": "Nombre entre comillas grandes, como una etiqueta.",
+	"eye-chart": "Tabla de examen de la vista: filas del nombre cada vez más pequeñas, con fracciones y números en los márgenes.",
+	"dictionary-entry": "Entrada de diccionario: sílabas separadas por puntos, pronunciación entre barras y definición numerada.",
+	"crossword": "Crucigrama: el nombre en horizontal y las palabras de los otros textos cruzándolo en las letras comunes.",
+	"dimension-lines": "Dibujo técnico: líneas guía, cota del ancho total y cotas de cada letra medidas en el propio nombre.",
+	"punch-card": "Tarjeta perforada con el código real de cada letra del nombre en las perforaciones.",
+	"bleed-crop": "Nombre más grande que el marco, recortado en los extremos y en la parte superior de las letras.",
+	"knockout-band": "Franja sólida que atraviesa el nombre, con las letras caladas dentro de ella.",
+	"playing-card": "Nombre arriba y girado 180° abajo, como en un naipe.",
+	"perspective": "Nombre tendido sobre un plano que se aleja hacia el horizonte.",
+	"book-spines": "Cada palabra se vuelve un lomo de libro de pie, alternando el sentido de lectura.",
+	"halftone": "Nombre relleno de puntos de trama que crecen de izquierda a derecha.",
+	"triline": "Tres líneas paralelas que siguen el contorno de las letras, con el centro vacío.",
+	"label-tape": "Cintas de rotuladora con las letras en relieve caladas, una por palabra.",
+	"jersey-number": "Espalda de camiseta: nombre en arco sobre un número con doble contorno, tomado de los dígitos del texto de arriba.",
+	"price-sign": "Cartel de oferta: la última palabra sube como los centavos y el texto de arriba queda calado en una franja.",
+	"shopfront": "Rótulo pintado: nombre estirado hasta el borde y el texto de arriba en letra cursiva cruzando la esquina."
 }
