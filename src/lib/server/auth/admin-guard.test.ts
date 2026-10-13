@@ -172,7 +172,8 @@ describe('matriz de proteção do /admin sem sessão', () => {
 		const foreign = otherAuth.login(env.password, 'ip');
 		for (const cookie of [
 			token + 'x',
-			token.replace(/.$/, 'A'),
+			// Troca o último caractere por outro: se ele já fosse 'A', o token ficaria intacto.
+			token.slice(0, -1) + (token.endsWith('A') ? 'B' : 'A'),
 			'x.y',
 			foreign.ok ? foreign.token : ''
 		]) {
